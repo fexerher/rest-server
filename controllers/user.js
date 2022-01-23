@@ -9,6 +9,9 @@ const Usuario = require('../models/usuario');
      const { limite = 5, desde = 0} = req.query;
      const query = {estado:  true};
 
+     if( isNaN( limite ) || isNaN(desde)){
+         return res.status(400).json({msg: 'Error en la busqueda'})
+     }
     const [total, usuarios] = await  Promise.all([
         Usuario.countDocuments(query),
         Usuario.find(query)
