@@ -24,7 +24,7 @@ const UsuarioSchema = Schema({
     role:{
         type: String,
         required: true,
-        emun: ['ADMIN_ROL', 'USER_ROLE']
+        default: 'USER_ROLE'
     },
     estado:{
         type: Boolean,
