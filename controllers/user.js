@@ -29,9 +29,9 @@ const obtenerUsuarioId = async ( req, res ) => {
 
     const { id }  = req.params
 
-    const {nombre, _id:uid, correo } = await Usuario.findById( id )
+    const usuario = await Usuario.findById( id )
 
-    res.json( {nombre, uid, correo}  )
+    res.json( usuario )
 
 }
 
