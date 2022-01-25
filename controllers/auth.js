@@ -2,7 +2,7 @@ const bcryptjs = require("bcryptjs");
 const { response } = require("express");
 const { generarJWT } = require("../helpers/generar-jwt");
 const { googleVerify } = require("../helpers/google-verifiy");
-const Usuario = require('../models/usuario')
+const { Usuario  } = require('../models')
 
 
 const login = async (req, res = response) => {
@@ -54,6 +54,43 @@ const login = async (req, res = response) => {
 
 }
 
+const register = async (req, res ) => {
+
+    const {nombre, correo, password} = req.body;
+
+    try {
+        
+        const usuario = new Usuario( { nombre, correo, password } )
+        
+        const usuarioDB = await Usuario.findOne({ correo })
+
+        if( usuarioDB ){
+             return res.status(400).json({
+                msg: 'Ya existe ese usuario'
+            })
+        }
+
+        const salt = bcryptjs.genSaltSync();
+        usuario.password = bcryptjs.hashSync( password , salt );
+        
+
+        usuario.save()
+
+        const token =   await  generarJWT( usuario.id )
+        
+        res.json({
+            usuario,
+            token
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Error al crear el usuario'
+        })
+    }
+
+}
+
 const googleSignIn = async(req, res = response) => {
 
     const { id_token } = req.body;
@@ -100,5 +137,6 @@ const googleSignIn = async(req, res = response) => {
 
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    register
 }
