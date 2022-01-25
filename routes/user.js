@@ -41,7 +41,7 @@ router.post('/', [
     check('correo', 'El correo no es valido').isEmail(),
     check('correo').custom( emailExiste ),
     // check('rol', 'No es un rol valido').isIn(),
-    check('role').custom( esRoleValido ),
+    //check('role').custom( esRoleValido ),
     validarCampos
 ] ,usuariosPost);  
 
