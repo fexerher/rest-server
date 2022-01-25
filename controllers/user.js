@@ -24,6 +24,17 @@ const Usuario = require('../models/usuario');
         usuarios
     })
 }
+const obtenerUsuarioId = async ( req, res ) => {
+
+
+    const { id }  = req.params
+
+    const {nombre, _id:uid, correo } = await Usuario.findById( id )
+
+    res.json( {nombre, uid, correo}  )
+
+}
+
 const usuariosPut = async (req, res)  =>  {
 
     const { id } = req.params
@@ -77,5 +88,6 @@ module.exports = {
     usuariosPut,
     usuariosPost,
     usuariosPatch,
-    usuariosDelete
+    usuariosDelete,
+    obtenerUsuarioId
 }
