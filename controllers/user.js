@@ -54,6 +54,7 @@ const usuariosPost = async (req, res)  => {
   
 
     const {nombre, correo, password , role} = req.body;
+    
     const usuario = new Usuario( {nombre, correo, password, role} )
 
     //Verificar si el correo existe

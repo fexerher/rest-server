@@ -35,10 +35,10 @@ router.put('/:id',[
 
 
 router.post('/', [
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('password', 'El password es obligatorio').not().isEmpty(),
-    check('password', 'El password tiene que ser más de 6 digitos').isLength({min: 6}),
-    check('correo', 'El correo no es valido').isEmail(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty().escape(),
+    check('password', 'El password es obligatorio').not().isEmpty().trim().escape(),
+    check('password', 'El password tiene que ser más de 6 digitos').isLength({min: 6}).trim().escape(),
+    check('correo', 'El correo no es valido').isEmail().normalizeEmail(),
     check('correo').custom( emailExiste ),
     // check('rol', 'No es un rol valido').isIn(),
     //check('role').custom( esRoleValido ),
