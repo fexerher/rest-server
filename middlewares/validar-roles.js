@@ -11,6 +11,7 @@ const esAdminRole = (req, res = response, next) => {
     }
 
     const { role, nombre } = req.usuario
+    console.log(role);
     if ( role !== 'ADMIN_ROLE'){
         return res.status(401).json({
             msg: `Permisos insuficientes`
