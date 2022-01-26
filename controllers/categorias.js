@@ -36,15 +36,13 @@ const obtenerCategoriaId = async ( req, res = response ) => {
       const { id } = req.params
       const query = {estado: true}
       
-      const [total, categoria] = await Promise.all ([
-          Categoria.countDocuments(query),
+      const [ categoria] = await Promise.all ([
           Categoria.findById( id ).populate('usuario', 'nombre').find(query)
       ])
 
       
       res.json( {
-          categoria, 
-          total
+          categoria
     } )
 
 }
@@ -61,7 +59,7 @@ const crearCategoria = async ( req, res = response) => {
 
     if( categoriaDB ){
         return res.status(400).json({
-            mas: `La categoria ${ categoriaDB.nombre }, ya existe`
+            msg: `La categoria ${ categoriaDB.nombre }, ya existe`
         })
     }
 
