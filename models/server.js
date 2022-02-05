@@ -6,7 +6,7 @@ class Server {
 
     constructor(){
         this.app =  express()
-        this.port = process.env.PORT || 7976
+        this.port = process.env.PORT
 
         this.paths = {
             auth:       '/api/auth',
